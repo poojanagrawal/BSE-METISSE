@@ -241,7 +241,7 @@ c-------------------------------------------------------------c
                   CALL star(kw,mass,mt,tm,tn,tscls,lums,GB,
      &                          zpars,dtm,id)
                   if(kw.eq.2)then
-                     if (sse_flag==0 then
+                     if (sse_flag==0) then
                      if(GB(9).lt.mc1.or.m0.gt.zpars(3))then
                         mass = m0
                      else

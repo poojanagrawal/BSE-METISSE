@@ -128,7 +128,7 @@
       endif
       if(idum.gt.0) idum = -idum
       CLOSE(22)
-      WRITE(*,*)
+      WRITE(*,*) 
 *
 * Note that this routine can be used to evolve a single star if you 
 * simply set mass(2) = 0.0 or tb = 0.0 (setting both is advised as  
@@ -142,7 +142,7 @@
       
       !set the front end if using METISSE
       if(sse_flag/=0) call initialize_front_end('BSE')
-      CALL zcnsts(z,zpars,'','')
+      CALL zcnsts(z,zpars)
 *
 * Set the collision matrix.
 *

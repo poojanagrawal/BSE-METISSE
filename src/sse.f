@@ -107,7 +107,7 @@ c-------------------------------------------------------------c
       !set the front end for METISSE
       if(sse_flag/=0) call initialize_front_end('SSE')
         
-      CALL zcnsts(z,zpars,'','')
+      CALL zcnsts(z,zpars)
       if(idum.gt.0) idum = -idum
 *
       if(mass.gt.0.0)then

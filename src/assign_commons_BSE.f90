@@ -29,3 +29,6 @@ subroutine assign_commons()
 
 end subroutine
 
+logical function check_path_change() result (load_tracks)
+    load_tracks = .true.
+end function
