@@ -20,7 +20,7 @@
       COMMON /VALUE1/ NETA,BWIND,HEWIND,MXNS
       REAL*8 dtm
       COMMON /TIMESTEP/ dtm
-       LOGICAL SSE_FLAG
+      INTEGER SSE_FLAG
       COMMON /SE/ SSE_FLAG
 *
 *       J1,j2 are I1 I2 here, KS =KSTAR=k1,k2
@@ -88,7 +88,7 @@
       IF(ICASE.EQ.1)THEN
 *       Specify new age based on complete mixing.
          IF(K1.EQ.7) KW = 7
-         if (SSE_FLAG .eqv. .false.) call set_star_type(1)
+         if (sse_flag/=0) call set_star_type(1)
          CALL star(KW,M03,M3,TMS3,TN,TSCLS,LUMS,GB,ZPARS,DTM,1)
          AGE3 = 0.1d0*TMS3*(AGE1*M1/TMS1 + AGE2*M2/TMS2)/M3
       ELSEIF(ICASE.EQ.3.OR.ICASE.EQ.6.OR.ICASE.EQ.9)THEN
@@ -99,7 +99,7 @@
          AGE3 = AGE1/TMS1
          CALL gntage(MC3,M3,KW,ZPARS,M03,AGE3,1)
       ELSEIF(ICASE.EQ.7)THEN
-         if (SSE_FLAG .eqv. .false.) call set_star_type(1)
+         if (sse_flag/=0) call set_star_type(1)
          CALL star(KW,M03,M3,TMS3,TN,TSCLS,LUMS,GB,ZPARS,DTM,1)
          AGE3 = TMS3*(AGE2*M2/TMS2)/M3
       ELSEIF(ICASE.LE.12)THEN

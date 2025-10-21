@@ -95,15 +95,17 @@ c-------------------------------------------------------------c
       READ(22,*)ifflag,wdflag,bhflag,nsflag,mxns
       READ(22,*)pts1,pts2,pts3
       READ(22,*)num_tracks,min_mass,max_mass
+      READ(22,*)sse_flag
+
 *
 ************************************************************************
 *
 * Set parameters which depend on the metallicity 
 *
-      SSE_FLAG = .false.
+     
       
       !set the front end for METISSE
-      if(SSE_FLAG.eqv..FALSE.) call initialize_front_end('SSE')
+      if(sse_flag/=0) call initialize_front_end('SSE')
         
       CALL zcnsts(z,zpars,'','')
       if(idum.gt.0) idum = -idum

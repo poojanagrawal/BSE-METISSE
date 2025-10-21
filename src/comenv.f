@@ -37,7 +37,7 @@
       REAL*8 CELAMF,RL,RZAMSF
       EXTERNAL CELAMF,RL,RZAMSF
       REAL*8 MCX
-      LOGICAL SSE_FLAG
+      INTEGER SSE_FLAG
       COMMON /SE/ SSE_FLAG
 *
 * mcx is a dummy variable in this subroutine
@@ -61,7 +61,7 @@
      &            R1,L1,KW1,MC1,RC1,MENV,RENV,K21,MCX,J1)
       OSPIN1 = JSPIN1/(K21*R1*R1*(M1-MC1)+K3*RC1*RC1*MC1)
       MENVD = MENV/(M1-MC1)
-      IF (SSE_FLAG.eqv..TRUE.) THEN
+      IF (sse_flag==0) THEN
         RZAMS = RZAMSF(M01)
         LAMB1 = CELAMF(KW,M01,L1,R1,RZAMS,MENVD,LAMBDA)
       ELSE
@@ -85,7 +85,7 @@
       IF(KW2.GE.2.AND.KW2.LE.9.AND.KW2.NE.7)THEN
 *      PA: secondary (less massive star) is neither ms nor remnant- is giant-like
          MENVD = MENV/(M2-MC2)
-         IF (SSE_FLAG.eqv..TRUE.) THEN
+         IF (sse_flag==0) THEN
            RZAMS = RZAMSF(M02)
            LAMB2 = CELAMF(KW,M02,L2,R2,RZAMS,MENVD,LAMBDA)
          ELSE
@@ -336,7 +336,7 @@
 * Combine the core masses.
 *
          IF(KW.EQ.2)THEN
-            if (SSE_FLAG .eqv. .false.) call set_star_type(J1)
+            if (sse_flag/=0) call set_star_type(J1)
             CALL star(KW,M1,M1,TM2,TN,TSCLS2,LUMS,GB,ZPARS,DTM
      &                          ,J1)
             IF(GB(9).GE.MC1)THEN
@@ -347,7 +347,7 @@
             ENDIF
          ELSEIF(KW.EQ.7)THEN
             M01 = M1
-            if (SSE_FLAG .eqv. .false.) call set_star_type(J1)
+            if (sse_flag/=0) call set_star_type(J1)
             CALL star(KW,M01,M1,TM1,TN,TSCLS1,LUMS,GB,ZPARS,DTM,J1)
             AJ1 = TM1*(FAGE1*MC1 + FAGE2*MC22)/(MC1 + MC22)
          ELSEIF(KW.EQ.4.OR.MC2.GT.0.D0.OR.KW.NE.KW1)THEN

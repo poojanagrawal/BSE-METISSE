@@ -25,6 +25,6 @@
       COMMON /SINGLE/ scm,spp
       REAL bcm(50000,34),bpp(80,10)
       COMMON /BINARY/ bcm,bpp
-      LOGICAL SSE_FLAG
+      INTEGER SSE_FLAG
       COMMON /SE/ SSE_FLAG
 *
