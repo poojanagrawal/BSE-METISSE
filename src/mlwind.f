@@ -8,10 +8,10 @@
       real*8 SSE_mlwind, METISSE_mlwind
       external SSE_mlwind, METISSE_mlwind
     
-      if (SSE_FLAG.eqv..TRUE.) then
+      if (sse_flag==0) then
           !WRITE(*,*) 'Calling SSE_mlwind'
           mlwind = SSE_mlwind(kw,lum,r,mt,mc,rl,z)
-      else!if (METISSE_FLAG.eqv..TRUE.) then
+      else
           !WRITE(*,*) 'Calling METISSE_mlwind'
           mlwind = METISSE_mlwind(kw,lum,r,mt,mc,rl,z,id)
       endif

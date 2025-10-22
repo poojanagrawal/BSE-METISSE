@@ -5,10 +5,10 @@
       real*8 mc,mt,zpars,m0,aj
       integer kw ,id
       
-      if(SSE_FLAG.eqv..TRUE.)then
+      if(sse_flag==0)then
           !WRITE(*,*) 'Calling SSE_gntage'
           CALL SSE_gntage(mc,mt,kw,zpars,m0,aj,id)
-      else!if (METISSE_FLAG.eqv..TRUE.) then
+      else
           !WRITE(*,*) 'Calling METISSE_gntage'
           CALL METISSE_gntage(mc,mt,kw,zpars,m0,aj,id)
       endif

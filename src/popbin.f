@@ -58,6 +58,7 @@
 * epsnov is the fraction of accreted matter retained in nova eruption (0.001). 
 * eddfac is Eddington limit factor for mass transfer (1.0).
 * gamma is the angular momentum factor for mass lost during Roche (-1.0). 
+* sse_flag is the flag to use metisse (1) or sse(0) as the stellar engine (1 default)
 *
 *      neta = 0.5
 *      bwind = 0.0
@@ -92,6 +93,7 @@
       READ(22,*)ceflag,tflag,ifflag,wdflag,bhflag,nsflag,mxns,idum
       READ(22,*)pts1,pts2,pts3
       READ(22,*)sigma,beta,xi,acc2,epsnov,eddfac,gamma
+      READ(22,*)sse_flag
       CLOSE(22)
 
       if(idum.gt.0) idum = -idum
@@ -117,12 +119,10 @@
 
 *
 * Set parameters which depend on the metallicity
-*
-      SSE_FLAG = .false.
-      
+*      
       !set the front end for METISSE
-      if(SSE_FLAG.eqv..FALSE.) call initialize_front_end('BSE')
-      CALL zcnsts(z,zpars,'','')
+      if(sse_flag/=0) call initialize_front_end('BSE')
+      CALL zcnsts(z,zpars)
       do i = 1,nm1
 *
 * Read in parameters and set coefficients which depend on metallicity. 

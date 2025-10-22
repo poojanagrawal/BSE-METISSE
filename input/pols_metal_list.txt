@@ -1,7 +1,0 @@
-'/Users/pagrawal/stellar_tracks/pols/eeps/OVS03'		0.03		0.0000
-'/Users/pagrawal/stellar_tracks/pols/eeps/OVS02'		0.02		0.0000
-'/Users/pagrawal/stellar_tracks/pols/eeps/OVS01'		0.01		0.0000
-'/Users/pagrawal/stellar_tracks/pols/eeps/OVS004'		0.004	0.0000
-'/Users/pagrawal/stellar_tracks/pols/eeps/OVS001'		0.001	0.0000
-'/Users/pagrawal/stellar_tracks/pols/eeps/OVS0003'	0.0003	0.0000
-'/Users/pagrawal/stellar_tracks/pols/eeps/OVS0001'	0.0001	0.0000

@@ -86,6 +86,7 @@
 * epsnov is the fraction of accreted matter retained in nova eruption (0.001). 
 * eddfac is Eddington limit factor for mass transfer (1.0).
 * gamma is the angular momentum factor for mass lost during Roche (-1.0). 
+* sse_flag is the flag to use metisse (1) or sse(0) as the stellar engine (1 default)
 *
 * If you enter a negative kstar then parameters for an evolved star are
 * required in the order of:
@@ -98,6 +99,7 @@
       READ(22,*)ceflag,tflag,ifflag,wdflag,bhflag,nsflag,mxns,idum
       READ(22,*)pts1,pts2,pts3
       READ(22,*)sigma,beta,xi,acc2,epsnov,eddfac,gamma
+      READ(22,*)sse_flag
       if(kstar(1).lt.0.or.kstar(2).lt.0)then
          READ(22,*)tphys
          READ(22,*)aj,mass(1),ospin(1)
@@ -126,7 +128,7 @@
       endif
       if(idum.gt.0) idum = -idum
       CLOSE(22)
-      WRITE(*,*)
+      WRITE(*,*) 
 *
 * Note that this routine can be used to evolve a single star if you 
 * simply set mass(2) = 0.0 or tb = 0.0 (setting both is advised as  
@@ -136,11 +138,11 @@
 *
 * Set parameters which depend on the metallicity 
 *
-      SSE_FLAG = .false.
+  
       
-      !set the front end for METISSE
-      if(SSE_FLAG.eqv..FALSE.) call initialize_front_end('BSE')
-      CALL zcnsts(z,zpars,'','')
+      !set the front end if using METISSE
+      if(sse_flag/=0) call initialize_front_end('BSE')
+      CALL zcnsts(z,zpars)
 *
 * Set the collision matrix.
 *

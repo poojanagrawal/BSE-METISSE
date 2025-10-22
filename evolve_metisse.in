@@ -2,9 +2,9 @@
 &METISSE_input_controls
 
 
-METALLICITY_DIR = '/Users/poojan/stellar_tracks/MESA/big_z/hydrogen'
+METALLICITY_DIR = '/Users/poojan/Downloads/sample_tracks_solarZ/Hydrogen'
             
-METALLICITY_DIR_HE = '/Users/poojan/stellar_tracks/MESA/big_z/helium'
+METALLICITY_DIR_HE = '/Users/poojan/Downloads/sample_tracks_solarZ/Helium'
 
 verbose = .true.
 

@@ -65,7 +65,7 @@ c-------------------------------------------------------------c
       INTEGER irecord
       COMMON /REC/ irecord
       integer id
-      LOGICAL SSE_FLAG
+      INTEGER SSE_FLAG
       COMMON /SE/ SSE_FLAG
 *
       ! in evolv1 hrdiag can be called several times
@@ -74,7 +74,7 @@ c-------------------------------------------------------------c
       irecord = 0
       id = 1
       mass0(1) = mass
-      call allocate_track(1,mass0)
+      if (sse_flag/=0) call allocate_track(1,mass0)
       
       dtm = 0.d0
       r = 0.d0
@@ -167,7 +167,7 @@ c-------------------------------------------------------------c
      &                          ,id)
 
                 if(kw.eq.2)then
-                  if (SSE_FLAG .eqv. .true.) then
+                  if (sse_flag==0) then
                   if(GB(9).lt.mc1.or.m0.gt.zpars(3))then
                      mass = m0
 *                    print*, "I came here 2.1", tphys,epoch
@@ -241,7 +241,7 @@ c-------------------------------------------------------------c
                   CALL star(kw,mass,mt,tm,tn,tscls,lums,GB,
      &                          zpars,dtm,id)
                   if(kw.eq.2)then
-                     if (SSE_FLAG .eqv. .true.) then
+                     if (sse_flag==0) then
                      if(GB(9).lt.mc1.or.m0.gt.zpars(3))then
                         mass = m0
                      else
@@ -455,7 +455,7 @@ c-------------------------------------------------------------c
          STOP
       endif
 *
-      call dealloc_track()
+      if (sse_flag/=0) call dealloc_track()
       RETURN
       END
 ***

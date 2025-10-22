@@ -201,7 +201,7 @@
       REAL bcm(50000,34),bpp(80,10)
       COMMON /BINARY/ bcm,bpp
       
-      LOGICAL SSE_FLAG
+      INTEGER SSE_FLAG
       COMMON /SE/ SSE_FLAG
 
 *
@@ -210,7 +210,7 @@
 
       dbg = .false.
 
-      if (SSE_FLAG.eqv..FALSE.) call allocate_track(2,mass0)
+      if (sse_flag/=0) call allocate_track(2,mass0)
 
       mass1i = mass0(1)
       mass2i = mass0(2)
@@ -713,7 +713,7 @@
      &                   tscls,lums,GB,zpars,dtm,k)
 *                print*,'star_ep_dt', mass0(k),mass(k),kstar(k),k
                if(kstar(k).eq.2)then
-                  if (SSE_FLAG.eqv..TRUE.) then
+                  if (sse_flag==0) then
                   if(GB(9).lt.massc(k).or.m0.gt.zpars(3))then
                      mass0(k) = m0
                   else
@@ -1023,7 +1023,7 @@
          if(dbg)print*,'b4 RLOF',j1,rad(j1),rol(j1),dtm,tphys
 
 *        PA: Relax the limit if using METISSE
-         if((SSE_FLAG.eqv..false.).and.
+         if((sse_flag/=0).and.
      &       (rad(j1).lt.1.05d0*rol(j1)))then
 
             if(tphys.ge.tphysf) goto 140
@@ -1101,7 +1101,7 @@
             tphys0 = tphys
 *           PA: to avoid crazy yet useless modifications in timesteps
 *           if using METISSE
-            if((SSE_FLAG .eqv. .false.) .and. (dtm.le.1.0d-10))
+            if((sse_flag/=0) .and. (dtm.le.1.0d-10))
      &       dtm=max(ABS(dtm),dtmi(j1))
          endif
       endif
@@ -1299,7 +1299,7 @@
             mass(j2) = mass(j2) + dm2
             if(kstar(j2).eq.2)then
                mass0(j2) = mass(j2)
-               if (SSE_FLAG .eqv. .false.) call set_star_type(j2)
+               if (sse_flag/=0) call set_star_type(j2)
                if(dbg)print*,'RLOF secondary giant,calling star',j2
                CALL star(kstar(j2),mass0(j2),mass(j2),tmsnew,tn,
      &                   tscls,lums,GB,zpars,dtm,j2)
@@ -1325,7 +1325,7 @@
                kst = kstar(j1)
                mass(j1) = mass(j2) + dm2
                mass(j2) = 0.d0
-              if (SSE_FLAG .eqv. .false.) call set_star_type(j1)
+              if (sse_flag/=0) call set_star_type(j1)
             else
                mass(j2) = mass(j2) + dm2
             if (dbg) print*, "calling gntage for low-mass WDs "
@@ -1672,7 +1672,7 @@
                if((kstar(j2).eq.10.and.mass(j2).lt.0.05d0).or.
      &            (kstar(j2).ge.11.and.mass(j2).lt.0.5d0))then
                   kst = kstar(j2)
-                  if (SSE_FLAG .eqv. .false.) call set_star_type(j2)
+                  if (sse_flag/=0) call set_star_type(j2)
                else
                   kst = MIN(6,3*kstar(j2)-27)
                   mt2 = mass(j2) + km*(dm2 - dms(j2))
@@ -2023,7 +2023,7 @@
          CALL star(kstar(j1),mass0(j1),mass(j1),tmsnew,tn,tscls,
      &             lums,GB,zpars,dtm,j1)
          if(kstar(j1).eq.2)then
-            if (SSE_FLAG.eqv..TRUE.) then
+            if (sse_flag==0) then
             aj(j1) = tmsnew + (tscls(1) - tmsnew)*(aj(j1)-tms(j1))/
      &                        (tbgb(j1) - tms(j1))
             endif
@@ -2039,7 +2039,7 @@
          CALL star(kstar(j2),mass0(j2),mass(j2),tmsnew,tn,tscls,
      &             lums,GB,zpars,dtm,j2)
          if(kstar(j2).eq.2)then
-            if (SSE_FLAG.eqv..TRUE.) then
+            if (sse_flag==0) then
             aj(j2) = tmsnew + (tscls(1) - tmsnew)*(aj(j2)-tms(j2))/
      &                        (tbgb(j2) - tms(j2))
             endif
@@ -2532,7 +2532,7 @@
       bcm(ip+1,1) = -1.0
       bpp(jp+1,1) = -1.0
 *
-      if (SSE_FLAG.eqv..FALSE.) call dealloc_track()
+      if (sse_flag/=0) call dealloc_track()
       RETURN
       END
 ***
